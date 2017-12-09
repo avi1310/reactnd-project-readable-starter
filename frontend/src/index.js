@@ -8,6 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './Reducers';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom'
 
 
 const store = createStore(
@@ -21,6 +22,8 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>, document.getElementById('root'));
 registerServiceWorker();

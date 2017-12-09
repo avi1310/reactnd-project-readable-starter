@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { connect } from 'react-redux'
+import  { Link } from 'react-router-dom'
 
 class Navigation extends React.Component {
     constructor(props) {
@@ -18,20 +19,36 @@ class Navigation extends React.Component {
     }
     render() {
         const { categories } = this.props
+        const selected = this.props.value
         return (
             <div className="nav-class">
-                {console.log(this.props.categories)}
                 <Navbar color="faded" light expand="md">
                     <NavbarBrand href="/">Readable</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            {(categories)?(categories.map((category) => (
-                                    <NavItem>
-                                        <NavLink href="/components/">{category.name}</NavLink>
-                                    </NavItem>
-                                ))
-                            ):(<span></span>)}
+                            {(categories)&&(categories.map(function (category) {
+                                if(selected === category.name) {
+                                    return (
+                                        <NavLink
+                                            href={`/category/${category.path}`}
+                                            className="nav-link active"
+                                            key={category.name}>
+                                            {category.name}
+                                        </NavLink>
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <NavLink
+                                            href={`/category/${category.path}`}
+                                            className="nav-link"
+                                            key={category.name}>
+                                            {category.name}
+                                        </NavLink>
+                                    )
+                                }
+                            }))}
                         </Nav>
                     </Collapse>
                 </Navbar>

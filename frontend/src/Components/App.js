@@ -6,10 +6,14 @@ import Post from "./Post";
 import Sort from "./Sort";
 import { fetchP, fetchC } from "../Actions"
 import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
+import RootFeed from './RootFeed'
+import CategoryView from './CategoryView'
+
 
 class App extends Component {
     state = {
-        flag: false
+        flag: false,
     }
     componentWillMount () {
         this.getData()
@@ -23,31 +27,35 @@ class App extends Component {
     }
 
   render() {
+      const { categories } = this.props
+
     return (
       <div className="App">
           {console.log(this.props)}
-        <Navigation/>
-        <div className="page-section">
-          <div className="page-top">
-              <h1 className="page-header">All Posts</h1>
-              <Sort/>
-          </div>
-            {(this.state.flag)?(
-                <Post/>
-            ):(
-                <h2>No posts to show</h2>
-
-            )}
-
-        </div>
+        <Route exact path="/" render={() => (
+            <RootFeed flag={this.state.flag} />
+        )} />
+          {(categories)&&(categories.map((category) => (
+                  <Route key={category.name} exact path={`/category/${category.path}`} render={() => (
+                      <CategoryView value={category.name} flag={this.state.flag} />
+                  )} />
+              ))
+          )}
       </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(data) {
-    return {
-        store: data
+    if(data.categories.categories) {
+        return {
+            categories: data.categories.categories.categories
+        }
+    }
+    else {
+        return {
+            categories: data.categories.categories
+        }
     }
 }
 

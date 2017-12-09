@@ -13,7 +13,6 @@ class Post extends Component {
 
     render() {
         const { posts } = this.props
-        {console.log(posts);}
         return (
             <div>
                 {(posts) ? (posts.map((post) => (
@@ -40,17 +39,28 @@ class Post extends Component {
     }
 };
 
-function mapStateToProps(data) {
-
+function mapStateToProps(data, ownProps) {
     if(data.posts.posts) {
-        data.posts.posts = data.posts.posts.sort(function (a, b) {
-            if(data.sort.sortValue === "time") {
-                return b.timestamp - a.timestamp
-            }
-            else {
-                return b.voteScore - a.voteScore;
-            }
-        })
+        if(ownProps.category) {
+            data.posts.posts = data.posts.posts.filter((post) => post.category === ownProps.category ).sort(function (a, b) {
+                if(data.sort.sortValue === "time") {
+                    return b.timestamp - a.timestamp
+                }
+                else {
+                    return b.voteScore - a.voteScore;
+                }
+            })
+        }
+        else {
+            data.posts.posts = data.posts.posts.sort(function (a, b) {
+                if(data.sort.sortValue === "time") {
+                    return b.timestamp - a.timestamp
+                }
+                else {
+                    return b.voteScore - a.voteScore;
+                }
+            })
+        }
     }
     return {
         posts: data.posts.posts,
