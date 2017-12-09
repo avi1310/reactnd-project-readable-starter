@@ -1,12 +1,12 @@
+import { combineReducers } from 'redux'
+
 import {
-    RECEIVE_POSTS
+    RECEIVE_POSTS,
+    RECEIVE_CATEGORIES,
+    CHANGE_SORT
 } from '../Actions'
 
-const initialState = {
-    posts: null
-}
-
-function posts (state = initialState, action) {
+function posts (state = {}, action) {
 
     const { posts } = action
 
@@ -21,4 +21,38 @@ function posts (state = initialState, action) {
     }
 }
 
-export default posts;
+function categories (state = {}, action) {
+
+    const { categories } = action
+
+    switch (action.type) {
+        case RECEIVE_CATEGORIES:
+            return {
+                ...state,
+                categories,
+            }
+        default:
+            return state;
+    }
+}
+
+
+function sort(state = {sortValue: "time"}, action) {
+    const { sortValue } = action
+
+    switch (action.type) {
+        case CHANGE_SORT:
+            return {
+                ...state,
+                sortValue,
+            }
+        default:
+            return state
+    }
+}
+
+export default combineReducers({
+    sort,
+    posts,
+    categories
+})

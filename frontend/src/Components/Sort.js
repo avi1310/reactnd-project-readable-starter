@@ -1,7 +1,9 @@
 import React from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { connect } from 'react-redux'
+import { changeSort } from '../Actions'
 
-export default class Sort extends React.Component {
+class Sort extends React.Component {
     constructor(props) {
         super(props);
 
@@ -17,18 +19,45 @@ export default class Sort extends React.Component {
         });
     }
 
+    sortChange() {
+        if(this.props.sort === "score") {
+            this.props.dispatch(changeSort("time"))
+        }
+        else {
+            this.props.dispatch(changeSort("score"))
+        }
+    }
+
     render() {
+        const {sort} = this.props
         return (
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle caret>
                     Sort By
+                    {console.log(this.props)}
                 </DropdownToggle>
                 <DropdownMenu>
-                    <DropdownItem>Score</DropdownItem>
+                    {(sort === "time")?(
+                        <DropdownItem active>Time</DropdownItem>
+                    ):(
+                        <DropdownItem onClick={() => this.sortChange()}>Time</DropdownItem>
+                    )}
                     <DropdownItem divider />
-                    <DropdownItem>Time</DropdownItem>
+                    {(sort === "score")?(
+                        <DropdownItem active>Score</DropdownItem>
+                    ):(
+                        <DropdownItem onClick={() => this.sortChange()}>Score</DropdownItem>
+                    )}
                 </DropdownMenu>
             </ButtonDropdown>
         );
     }
 }
+
+function mapStateToProps(data) {
+    return {
+        sort: data.sort.sortValue
+    }
+}
+
+export default connect(mapStateToProps)(Sort)

@@ -4,27 +4,19 @@ import '../App.css';
 import Navigation from "./Navigation";
 import Post from "./Post";
 import Sort from "./Sort";
-import { fetchPosts } from "../utils/api";
-import { fetchP } from "../Actions"
+import { fetchP, fetchC } from "../Actions"
+import { connect } from 'react-redux'
 
 class App extends Component {
     state = {
-        posts: null,
         flag: false
     }
     componentWillMount () {
-        this.submit()
+        this.getData()
     }
-    componentDidMount () {
-        const {store} = this.props
-        store.subscribe(() => {
-            this.setState(() => {
-                posts: store.getState()
-            })
-        })
-    }
-    submit = () => {
-        this.props.store.dispatch(fetchP())
+    getData = () => {
+        this.props.dispatch(fetchP())
+        this.props.dispatch(fetchC())
         this.setState({
             flag: true
         })
@@ -33,6 +25,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+          {console.log(this.props)}
         <Navigation/>
         <div className="page-section">
           <div className="page-top">
@@ -52,4 +45,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(data) {
+    return {
+        store: data
+    }
+}
+
+export default connect(mapStateToProps)(App)
