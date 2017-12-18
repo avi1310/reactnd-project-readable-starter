@@ -39,8 +39,8 @@ class Post extends Component {
                         </CardBody>
                         <CardFooter>
                             <div className="vote-controls">
-                                <Button className="up-vote" onClick={(pid = post.id) => this.vote(pid, "upVote")}>Upvote</Button>
-                                <Button className="down-vote" onClick={(pid = post.id) => this.vote(pid, "downVote")}>Downvote</Button>
+                                <Button className="up-vote" onClick={() => this.vote(post.id, "upVote")}>Upvote</Button>
+                                <Button className="down-vote" onClick={() => this.vote(post.id, "downVote")}>Downvote</Button>
                                 <span className="post-score">Score: {post.voteScore}</span>
                             </div>
                             <span className="total-comments">{post.commentCount} Comment(s)</span>

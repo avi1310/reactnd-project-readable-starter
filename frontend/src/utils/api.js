@@ -26,14 +26,14 @@ export const addPostAPI = post =>
         method: "post",
         headers: myHeaders,
         body: JSON.stringify(post)
-    }).then(res => res.json());
+    }).then(res => console.log(res.json()));
 
 export const updateVotePost = (postId, vote) =>
-fetch(`${API}/posts/` + postId, {
-    method: `POST`,
-    headers: myHeaders,
-    body: JSON.stringify({ option: vote })
-}).then(res => res.json());
+    fetch(`${API}/posts/${postId}`, {
+        method: `post`,
+        headers: myHeaders,
+        body: JSON.stringify({'option': vote})
+    }).then(res => res.json()).then(data => data)
 
 export const updatePostAPI = (id, post) =>
     fetch(`${API}/posts/${id}`, {

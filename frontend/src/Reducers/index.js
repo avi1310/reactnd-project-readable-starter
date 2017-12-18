@@ -22,7 +22,7 @@ function posts (state = [], action) {
         case UP_VOTE_POST:
             let postupvote = state.map(p => {
                 if (p.id === id) {
-                    p.voteScore++;
+                    ++p.voteScore;
                 }
                 return p;
             });
@@ -30,7 +30,7 @@ function posts (state = [], action) {
         case DOWN_VOTE_POST:
             let postdownvote = state.map(p => {
                 if (p.id === id) {
-                    p.voteScore--;
+                    --p.voteScore;
                 }
                 return p;
             });

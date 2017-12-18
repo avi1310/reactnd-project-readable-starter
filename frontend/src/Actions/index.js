@@ -68,15 +68,14 @@ function downVotePost(id) {
     };
 }
 
-export const updateVote = (id, vote) => dispatch =>
-    updateVotePost(id, vote).then(response => {
-        const postid = response.id;
-        if (vote === "upVote") {
-            dispatch(upVotePost(postid));
-        } else {
-            dispatch(downVotePost(postid));
-        }
-    });
+export const updateVote = (id, vote) => dispatch => {
+    updateVotePost(id, vote)
+    if(vote === "upVote") {
+        dispatch(upVotePost(id))
+    } else {
+        dispatch(downVotePost(id))
+    }
+}
 
 function updatePostRedux(post) {
     return {

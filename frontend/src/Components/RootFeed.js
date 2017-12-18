@@ -27,7 +27,6 @@ class RootFeed extends Component {
                         <h2>No posts to show</h2>
 
                     )}
-                    {console.log(this.props)}
                 </div>
             </div>
         );
