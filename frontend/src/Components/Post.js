@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { votePost } from '../utils/api';
 import { withRouter } from 'react-router-dom'
-
+import { updateVote } from '../Actions'
 
 class Post extends Component {
 
     vote (id, option) {
-        votePost(id, option)
+        this.props.dispatch(updateVote(id, option))
     }
 
     render() {
@@ -30,7 +30,7 @@ class Post extends Component {
                         <CardFooter>
                             <div className="vote-controls">
                                 <Button className="up-vote" onClick={(pid = post.id) => this.vote(pid, "upVote")}>Upvote</Button>
-                                <Button className="down-vote">Downvote</Button>
+                                <Button className="down-vote" onClick={(pid = post.id) => this.vote(pid, "downVote")}>Downvote</Button>
                                 <span className="post-score">Score: {post.voteScore}</span>
                             </div>
                             <span className="total-comments">{post.commentCount} Comment(s)</span>

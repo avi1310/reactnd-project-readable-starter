@@ -2,6 +2,7 @@ const API = "http://localhost:3001"
 
 const myHeaders = new Headers({
     'Authorization': 'whatever-you-want',
+    'Content-Type': 'application/json'
 })
 
 let token = localStorage.token;
@@ -11,6 +12,7 @@ if (!token)
         .substr(-8);
 
 const headers = {
+    Accept: 'application/json',
     Authorization: token
 };
 
@@ -24,16 +26,6 @@ export function fetchCategories () {
         .then(response => response.json())
 }
 
-
-
-export function votePost (id, option) {
-    return fetch(`${API}/posts/${id}`, {
-        headers: myHeaders,
-        method: "POST",
-        body: JSON.stringify(option)
-    });
-}
-
 export const addPostAPI = post =>
     fetch(`${API}/posts`, {
         method: "POST",
@@ -43,3 +35,10 @@ export const addPostAPI = post =>
         },
         body: JSON.stringify(post)
     }).then(res => res.json());
+
+export const updateVotePost = (postId, vote) =>
+fetch(`${API}/posts/` + postId, {
+    method: `POST`,
+    headers: myHeaders,
+    body: JSON.stringify({ option: vote })
+}).then(res => res.json());

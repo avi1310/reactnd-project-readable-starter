@@ -4,20 +4,38 @@ import {
     RECEIVE_POSTS,
     RECEIVE_CATEGORIES,
     CHANGE_SORT,
-    ADD_POST
+    ADD_POST,
+    UP_VOTE_POST,
+    DOWN_VOTE_POST
 } from '../Actions'
 
 function posts (state = [], action) {
 
-    const { posts, post } = action
+    const { posts, post, id } = action
 
     switch (action.type) {
-            case RECEIVE_POSTS:
-                return posts;
+        case RECEIVE_POSTS:
+            return posts;
         case ADD_POST:
-                return [...state, post]
-            default:
-                return state;
+            return [...state, post]
+        case UP_VOTE_POST:
+            let postupvote = state.map(p => {
+                if (p.id === id) {
+                    p.voteScore++;
+                }
+                return p;
+            });
+            return postupvote;
+        case DOWN_VOTE_POST:
+            let postdownvote = state.map(p => {
+                if (p.id === id) {
+                    p.voteScore--;
+                }
+                return p;
+            });
+            return postdownvote;
+        default:
+            return state;
     }
 }
 

@@ -1,9 +1,11 @@
-import { fetchPosts, fetchCategories, addPostAPI } from "../utils/api";
+import { fetchPosts, fetchCategories, addPostAPI, updateVotePost } from "../utils/api";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const CHANGE_SORT = "CHANGE_SORT";
 export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
 export const ADD_POST = "ADD_POST";
+export const UP_VOTE_POST = "UP_VOTE_POST";
+export const DOWN_VOTE_POST = "DOWN_VOTE_POST";
 
 export const receivePosts = posts => ({
     type: RECEIVE_POSTS,
@@ -50,3 +52,27 @@ function addPost(post) {
 
 export const addPostRedux = post => dispatch =>
     addPostAPI(post).then(dispatch(addPost(post)));
+
+function upVotePost(id) {
+    return {
+        type: UP_VOTE_POST,
+        id
+    };
+}
+
+function downVotePost(id) {
+    return {
+        type: DOWN_VOTE_POST,
+        id
+    };
+}
+
+export const updateVote = (id, vote) => dispatch =>
+    updateVotePost(id, vote).then(response => {
+        const postid = response.id;
+        if (vote === "upVote") {
+            dispatch(upVotePost(postid));
+        } else {
+            dispatch(downVotePost(postid));
+        }
+    });

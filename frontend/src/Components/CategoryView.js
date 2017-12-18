@@ -18,10 +18,12 @@ class CategoryView extends Component {
                 <div className="page-section">
                     <div className="page-top">
                         <h1 className="page-header">{categorySel}</h1>
-                        <Link to='/addpost'>
-                            <Button color="secondary" size="md" className="post-button">Add post</Button>
-                        </Link>
-                        <Sort/>
+                        <div className="buttons-top">
+                            <Link to='/addpost'>
+                                <Button color="secondary" size="md" className="post-button">Add post</Button>
+                            </Link>
+                            <Sort/>
+                        </div>
                     </div>
                     {(this.props.flag)?(
                         <Post category={categorySel}/>
