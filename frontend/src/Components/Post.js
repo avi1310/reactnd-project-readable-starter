@@ -4,6 +4,7 @@ import { Card, Button, CardHeader, CardFooter, CardBody,
 import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { votePost } from '../utils/api';
+import { withRouter } from 'react-router-dom'
 
 class Post extends Component {
 
@@ -40,9 +41,11 @@ class Post extends Component {
 };
 
 function mapStateToProps(data, ownProps) {
+    let postsData = []
     if(data.posts.posts) {
+        postsData = data.posts.posts
         if(ownProps.category) {
-            data.posts.posts = data.posts.posts.filter((post) => post.category === ownProps.category ).sort(function (a, b) {
+            postsData = postsData.filter((post) => post.category === ownProps.category ).sort(function (a, b) {
                 if(data.sort.sortValue === "time") {
                     return b.timestamp - a.timestamp
                 }
@@ -52,7 +55,7 @@ function mapStateToProps(data, ownProps) {
             })
         }
         else {
-            data.posts.posts = data.posts.posts.sort(function (a, b) {
+            postsData = postsData.sort(function (a, b) {
                 if(data.sort.sortValue === "time") {
                     return b.timestamp - a.timestamp
                 }
@@ -63,9 +66,9 @@ function mapStateToProps(data, ownProps) {
         }
     }
     return {
-        posts: data.posts.posts,
+        posts: postsData,
         sort: data.sort.sortValue
     }
 }
 
-export default connect(mapStateToProps)(Post)
+export default withRouter(connect(mapStateToProps)(Post))

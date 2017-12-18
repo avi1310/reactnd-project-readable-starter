@@ -3,6 +3,8 @@ import Navigation from "./Navigation";
 import Post from "./Post";
 import Sort from "./Sort";
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Button } from 'reactstrap'
 
 class CategoryView extends Component {
 
@@ -16,6 +18,9 @@ class CategoryView extends Component {
                 <div className="page-section">
                     <div className="page-top">
                         <h1 className="page-header">{categorySel}</h1>
+                        <Link to='/addpost'>
+                            <Button color="secondary" size="md" className="post-button">Add post</Button>
+                        </Link>
                         <Sort/>
                     </div>
                     {(this.props.flag)?(

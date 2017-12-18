@@ -16,6 +16,7 @@ export function fetchCategories () {
 }
 
 
+
 export function votePost (id, option) {
     return fetch(`${API}/posts/${id}`, {
         headers: myHeaders,

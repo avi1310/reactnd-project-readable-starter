@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import RootFeed from './RootFeed'
 import CategoryView from './CategoryView'
+import AddPost from './AddPost'
+import { withRouter } from 'react-router-dom'
 
 
 class App extends Component {
@@ -35,6 +37,9 @@ class App extends Component {
         <Route exact path="/" render={() => (
             <RootFeed flag={this.state.flag} />
         )} />
+          <Route exact path="/addpost" render={() => (
+              <AddPost />
+          )} />
           {(categories)&&(categories.map((category) => (
                   <Route key={category.name} exact path={`/category/${category.path}`} render={() => (
                       <CategoryView value={category.name} flag={this.state.flag} />
@@ -59,4 +64,4 @@ function mapStateToProps(data) {
     }
 }
 
-export default connect(mapStateToProps)(App)
+export default withRouter(connect(mapStateToProps)(App))

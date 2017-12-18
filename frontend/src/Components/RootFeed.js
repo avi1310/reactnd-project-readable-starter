@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Navigation from "./Navigation";
 import Post from "./Post";
 import Sort from "./Sort";
+import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 class RootFeed extends Component {
 
@@ -12,7 +14,12 @@ class RootFeed extends Component {
                 <div className="page-section">
                     <div className="page-top">
                         <h1 className="page-header">All Posts</h1>
-                        <Sort/>
+                        <div className="buttons-top">
+                            <Link to='/addpost'>
+                                <Button color="secondary" size="md" className="post-button">Add post</Button>
+                            </Link>
+                            <Sort/>
+                        </div>
                     </div>
                     {(this.props.flag)?(
                         <Post/>

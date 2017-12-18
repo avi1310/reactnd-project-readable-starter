@@ -23,29 +23,29 @@ class Navigation extends React.Component {
         return (
             <div className="nav-class">
                 <Navbar color="faded" light expand="md">
-                    <NavbarBrand href="/">Readable</NavbarBrand>
+                    <Link to="/" className="navbar-brand">Readable</Link>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             {(categories)&&(categories.map(function (category) {
                                 if(selected === category.name) {
                                     return (
-                                        <NavLink
-                                            href={`/category/${category.path}`}
+                                        <Link
+                                            to={`/category/${category.path}`}
                                             className="nav-link active"
                                             key={category.name}>
                                             {category.name}
-                                        </NavLink>
+                                        </Link>
                                     )
                                 }
                                 else {
                                     return (
-                                        <NavLink
-                                            href={`/category/${category.path}`}
+                                        <Link
+                                            to={`/category/${category.path}`}
                                             className="nav-link"
                                             key={category.name}>
                                             {category.name}
-                                        </NavLink>
+                                        </Link>
                                     )
                                 }
                             }))}
