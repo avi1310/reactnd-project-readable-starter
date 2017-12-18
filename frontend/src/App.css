@@ -118,3 +118,8 @@ span.author {
   flex-direction: row;
   justify-content: flex-start;
 }
+.post-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

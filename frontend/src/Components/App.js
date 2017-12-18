@@ -10,6 +10,7 @@ import { Route } from 'react-router-dom'
 import RootFeed from './RootFeed'
 import CategoryView from './CategoryView'
 import AddPost from './AddPost'
+import EditPost from './EditPost'
 import { withRouter } from 'react-router-dom'
 
 
@@ -29,7 +30,7 @@ class App extends Component {
     }
 
   render() {
-      const { categories } = this.props
+      const { categories, posts } = this.props
 
     return (
       <div className="App">
@@ -40,6 +41,13 @@ class App extends Component {
           <Route exact path="/addpost" render={() => (
               <AddPost />
           )} />
+
+          {(posts)&&(posts.map((post) => (
+                  <Route key={post.id} exact path={`/editpost/${post.id}`} render={() => (
+                      <EditPost value={post.id} />
+                  )} />
+              ))
+          )}
           {(categories)&&(categories.map((category) => (
                   <Route key={category.name} exact path={`/category/${category.path}`} render={() => (
                       <CategoryView value={category.name} flag={this.state.flag} />
@@ -54,12 +62,14 @@ class App extends Component {
 function mapStateToProps(data) {
     if(data.categories.categories) {
         return {
-            categories: data.categories.categories.categories
+            categories: data.categories.categories.categories,
+            posts: data.posts
         }
     }
     else {
         return {
-            categories: data.categories.categories
+            categories: data.categories.categories,
+            posts: data.posts
         }
     }
 }

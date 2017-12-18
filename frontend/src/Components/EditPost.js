@@ -3,24 +3,33 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Navigation from './Navigation'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { addPostRedux } from '../Actions'
+import { updatePost } from '../Actions'
+import { fetchSinglePost } from "../utils/api";
 
-const uuidv4 = require("uuid-v4");
 
-class AddPost extends React.Component {
+class EditPost extends React.Component {
     state = {
         title: '',
         body: '',
         author: '',
-        category: ''
+        category: '',
+        id: this.props.value
+    }
+    componentDidMount() {
+        fetchSinglePost(this.state.id).then(response => this.setState({
+            title: response.title,
+            body: response. body,
+            author: response.author,
+            category: response.category,
+        }))
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        const post = this.state
-        post.timestamp = Date.now()
-        post.id = uuidv4();
-        post.voteScore = 0;
-        this.props.dispatch(addPostRedux(post));
+        const post = {
+            title: this.state.title,
+            body: this.state.body
+        }
+        this.props.dispatch(updatePost(this.state.id, post));
         this.props.history.push("/")
     }
     handleTitleChange = (e) => {
@@ -28,12 +37,6 @@ class AddPost extends React.Component {
     }
     handleBodyChange = (e) => {
         this.setState({body: e.target.value})
-    }
-    handleAuthorChange = (e) => {
-        this.setState({author: e.target.value})
-    }
-    handleCategoryChange = (e) => {
-        this.setState({category: e.target.value})
     }
     render() {
         let { categories } = this.props
@@ -43,7 +46,7 @@ class AddPost extends React.Component {
                 <Navigation />
                 <div className="page-section">
                     <div className="page-top">
-                        <h1 className="page-header">Add a Post</h1>
+                        <h1 className="page-header">Edit Post</h1>
                     </div>
                     <Form className="post-form" onSubmit={this.handleSubmit}>
                         <FormGroup>
@@ -56,16 +59,15 @@ class AddPost extends React.Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="body" className="label-name">Author</Label>
-                            <Input type="text" name="author" id="author" placeholder="Enter author name" value={this.state.author} onChange={this.handleAuthorChange} />
+                            <Input disabled type="text" name="author" id="author" placeholder="Enter author name" value={this.state.author} onChange={this.handleAuthorChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="categorySelect" className="label-name">Category</Label>
-                                <Input type="select" name="select" id="categorySelect" value={this.state.category} onChange={this.handleCategoryChange}>
-                                    <option></option>
-                                    {categories && categories.map(function (category) {
-                                        return (<option key={category.name}>{category.name}</option>)
-                                    })}
-                                </Input>
+                            <Input disabled type="select" name="select" id="categorySelect" value={this.state.category} onChange={this.handleCategoryChange}>
+                                {categories && categories.map(function (category) {
+                                    return (<option key={category.name}>{category.name}</option>)
+                                })}
+                            </Input>
                         </FormGroup>
 
                         <Button id="form-submit-btn">Submit</Button>
@@ -90,4 +92,4 @@ function mapStateToProps(data) {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(AddPost))
+export default withRouter(connect(mapStateToProps)(EditPost))

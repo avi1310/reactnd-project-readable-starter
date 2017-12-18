@@ -6,7 +6,8 @@ import {
     CHANGE_SORT,
     ADD_POST,
     UP_VOTE_POST,
-    DOWN_VOTE_POST
+    DOWN_VOTE_POST,
+    UPDATE_POST_REDUX
 } from '../Actions'
 
 function posts (state = [], action) {
@@ -34,8 +35,17 @@ function posts (state = [], action) {
                 return p;
             });
             return postdownvote;
+        case UPDATE_POST_REDUX:
+            let newpost = state.map(p => {
+                if (p.id === post.id) {
+                    p = post;
+                }
+                return p;
+            });
+            return newpost;
         default:
             return state;
+
     }
 }
 

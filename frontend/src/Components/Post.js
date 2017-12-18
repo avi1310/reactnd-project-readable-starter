@@ -4,7 +4,7 @@ import { Card, Button, CardHeader, CardFooter, CardBody,
 import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { votePost } from '../utils/api';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { updateVote } from '../Actions'
 
 class Post extends Component {
@@ -19,7 +19,10 @@ class Post extends Component {
             <div>
                 {(posts) ? (posts.map((post) => (
                     <Card key={post.id}>
-                        <CardHeader>{post.category}</CardHeader>
+                        <CardHeader className="post-card-header">
+                            <span>{post.category}</span>
+                            <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                        </CardHeader>
                         <CardBody>
                             <div className="title-area">
                                 <CardTitle>{post.title} <span className="author">by {post.author}</span></CardTitle>

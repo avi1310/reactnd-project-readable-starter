@@ -21,6 +21,11 @@ export function fetchPosts () {
         .then(response => response.json())
 }
 
+export function fetchSinglePost (id) {
+    return fetch(`${API}/posts/${id}`, {headers: myHeaders})
+        .then(response => response.json())
+}
+
 export function fetchCategories () {
     return fetch(`${API}/categories`, {headers: myHeaders})
         .then(response => response.json())
@@ -42,3 +47,13 @@ fetch(`${API}/posts/` + postId, {
     headers: myHeaders,
     body: JSON.stringify({ option: vote })
 }).then(res => res.json());
+
+export const updatePostAPI = (id, post) =>
+    fetch(`${API}/posts/${id}`, {
+        method: "PUT",
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(post)
+    }).then(res => res.json());
