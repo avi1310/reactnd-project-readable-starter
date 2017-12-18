@@ -3,19 +3,19 @@ import { combineReducers } from 'redux'
 import {
     RECEIVE_POSTS,
     RECEIVE_CATEGORIES,
-    CHANGE_SORT
+    CHANGE_SORT,
+    ADD_POST
 } from '../Actions'
 
-function posts (state = {}, action) {
+function posts (state = [], action) {
 
-    const { posts } = action
+    const { posts, post } = action
 
     switch (action.type) {
             case RECEIVE_POSTS:
-                return {
-                    ...state,
-                    posts,
-                }
+                return posts;
+        case ADD_POST:
+                return [...state, post]
             default:
                 return state;
     }
@@ -35,7 +35,6 @@ function categories (state = {}, action) {
             return state;
     }
 }
-
 
 function sort(state = {sortValue: "time"}, action) {
     const { sortValue } = action

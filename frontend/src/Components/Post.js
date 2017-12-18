@@ -6,6 +6,7 @@ import Timestamp from 'react-timestamp';
 import { votePost } from '../utils/api';
 import { withRouter } from 'react-router-dom'
 
+
 class Post extends Component {
 
     vote (id, option) {
@@ -42,8 +43,10 @@ class Post extends Component {
 
 function mapStateToProps(data, ownProps) {
     let postsData = []
-    if(data.posts.posts) {
-        postsData = data.posts.posts
+    console.log(data.posts);
+    if(data.posts) {
+        postsData = data.posts
+
         if(ownProps.category) {
             postsData = postsData.filter((post) => post.category === ownProps.category ).sort(function (a, b) {
                 if(data.sort.sortValue === "time") {

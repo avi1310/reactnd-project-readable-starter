@@ -3,17 +3,25 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Navigation from './Navigation'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { addPostRedux } from '../Actions'
+
+const uuidv4 = require("uuid-v4");
 
 class AddPost extends React.Component {
     state = {
         title: '',
         body: '',
         author: '',
-        categorySel: ''
+        category: ''
     }
     handleSubmit = (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
+        const post = this.state
+        post.timestamp = Date.now()
+        post.id = uuidv4();
+        post.voteScore = 0;
+        this.props.dispatch(addPostRedux(post));
+        this.props.history.push("/")
     }
     handleTitleChange = (e) => {
         this.setState({title: e.target.value})
@@ -25,7 +33,7 @@ class AddPost extends React.Component {
         this.setState({author: e.target.value})
     }
     handleCategoryChange = (e) => {
-        this.setState({categorySel: e.target.value})
+        this.setState({category: e.target.value})
     }
     render() {
         let { categories } = this.props
@@ -33,7 +41,6 @@ class AddPost extends React.Component {
         return (
             <div>
                 <Navigation />
-                {console.log(this)}
                 <div className="page-section">
                     <div className="page-top">
                         <h1 className="page-header">Add a Post</h1>

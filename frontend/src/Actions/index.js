@@ -1,8 +1,9 @@
-import { fetchPosts, fetchCategories } from "../utils/api";
+import { fetchPosts, fetchCategories, addPostAPI } from "../utils/api";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const CHANGE_SORT = "CHANGE_SORT";
 export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
+export const ADD_POST = "ADD_POST";
 
 export const receivePosts = posts => ({
     type: RECEIVE_POSTS,
@@ -10,7 +11,6 @@ export const receivePosts = posts => ({
 });
 
 export function fetchP () {
-
 
     return function (dispatch) {
         return fetchPosts().then(
@@ -40,3 +40,13 @@ export function fetchC () {
         );
     };
 }
+
+function addPost(post) {
+    return {
+        type: ADD_POST,
+        post
+    }
+}
+
+export const addPostRedux = post => dispatch =>
+    addPostAPI(post).then(dispatch(addPost(post)));
