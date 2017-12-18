@@ -10,7 +10,6 @@ class CategoryView extends Component {
 
     render() {
         const categorySel = this.props.value
-        console.log(categorySel)
         return (
 
             <div>

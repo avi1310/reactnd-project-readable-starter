@@ -2,19 +2,9 @@ const API = "http://localhost:3001"
 
 const myHeaders = new Headers({
     'Authorization': 'whatever-you-want',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json, text/plain, */*'
 })
-
-let token = localStorage.token;
-if (!token)
-    token = localStorage.token = Math.random()
-        .toString(36)
-        .substr(-8);
-
-const headers = {
-    Accept: 'application/json',
-    Authorization: token
-};
 
 export function fetchPosts () {
     return fetch(`${API}/posts`, {headers: myHeaders})
@@ -33,11 +23,8 @@ export function fetchCategories () {
 
 export const addPostAPI = post =>
     fetch(`${API}/posts`, {
-        method: "POST",
-        headers: {
-            ...headers,
-            "Content-Type": "application/json"
-        },
+        method: "post",
+        headers: myHeaders,
         body: JSON.stringify(post)
     }).then(res => res.json());
 
@@ -51,9 +38,6 @@ fetch(`${API}/posts/` + postId, {
 export const updatePostAPI = (id, post) =>
     fetch(`${API}/posts/${id}`, {
         method: "PUT",
-        headers: {
-            ...headers,
-            "Content-Type": "application/json"
-        },
+        headers: myHeaders,
         body: JSON.stringify(post)
     }).then(res => res.json());

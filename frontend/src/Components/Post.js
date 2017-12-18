@@ -5,10 +5,17 @@ import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { votePost } from '../utils/api';
 import { withRouter, Link } from 'react-router-dom'
-import { updateVote } from '../Actions'
+import { updateVote, fetchC, fetchP } from '../Actions'
 
 class Post extends Component {
 
+    componentWillMount () {
+        this.getData()
+    }
+    getData = () => {
+        this.props.dispatch(fetchP())
+        this.props.dispatch(fetchC())
+    }
     vote (id, option) {
         this.props.dispatch(updateVote(id, option))
     }
@@ -46,7 +53,6 @@ class Post extends Component {
 
 function mapStateToProps(data, ownProps) {
     let postsData = []
-    console.log(data.posts);
     if(data.posts) {
         postsData = data.posts
 

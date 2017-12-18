@@ -34,7 +34,6 @@ class App extends Component {
 
     return (
       <div className="App">
-          {console.log(this.props)}
         <Route exact path="/" render={() => (
             <RootFeed flag={this.state.flag} />
         )} />

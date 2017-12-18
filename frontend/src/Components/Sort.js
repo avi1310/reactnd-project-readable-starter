@@ -34,7 +34,6 @@ class Sort extends React.Component {
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle caret>
                     Sort By
-                    {console.log(this.props)}
                 </DropdownToggle>
                 <DropdownMenu>
                     {(sort === "time")?(
