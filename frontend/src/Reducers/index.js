@@ -10,7 +10,9 @@ import {
     UPDATE_POST_REDUX,
     RECEIVE_COMMENTS,
     UP_VOTE_COMMENT,
-    DOWN_VOTE_COMMENT
+    DOWN_VOTE_COMMENT,
+    DELETE_COMMENT,
+    COMMENT_NUMBER_UPDATE
 } from '../Actions'
 
 function posts (state = [], action) {
@@ -46,6 +48,14 @@ function posts (state = [], action) {
                 return p;
             });
             return newpost;
+        case COMMENT_NUMBER_UPDATE:
+            let updatedpostdelete = state.map(p => {
+                if (p.id === id) {
+                    p.commentCount--;
+                }
+                return p;
+            });
+            return updatedpostdelete;
         default:
             return state;
 
@@ -89,6 +99,9 @@ function comments(state = [], action) {
                 return c;
             });
             return commentdownvote;
+        case DELETE_COMMENT:
+            let update = state.filter(c => c.id !== id);
+            return update;
         default:
             return state;
     }

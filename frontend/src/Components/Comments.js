@@ -4,12 +4,15 @@ import { Card, Button, CardHeader, CardFooter, CardBody,
 import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { withRouter, Link } from 'react-router-dom';
-import { updateCommentVote } from '../Actions'
+import { updateCommentVote, deleteCommentRedux } from '../Actions'
 
 class Comments extends React.Component {
 
     vote (id, option) {
         this.props.dispatch(updateCommentVote(id, option))
+    }
+    commentDelete (id) {
+        this.props.dispatch(deleteCommentRedux(id))
     }
 
     render () {
@@ -31,7 +34,7 @@ class Comments extends React.Component {
                                     <span className="comment-score">Score: {comment.voteScore}</span>
                                     <Button size="sm" className="comment-button" onClick={() => this.vote(comment.id, "upVote")}>Upvote</Button>
                                     <Button size="sm" className="comment-button" onClick={() => this.vote(comment.id, "downVote")}>Downvote</Button>
-                                    <Button size="sm" className="comment-button">Delete</Button>
+                                    <Button size="sm" className="comment-button" onClick={() => this.commentDelete(comment.id)}>Delete</Button>
                                 </div>
                             </CardBody>
                         </Card>

@@ -17,18 +17,17 @@ class DetailedPost extends Component {
     }
 
     componentWillMount () {
-        fetchSinglePost(this.props.value).then(response => {
-            this.setState({
-                post: response
-            })
-            this.props.dispatch(getAllComments(response.id))
+
+        const matchId = (element) => element.id === this.props.value
+
+        this.setState({
+            post: this.props.posts.find(matchId)
         })
+
+        this.props.dispatch(getAllComments(this.props.value))
     }
     vote (id, option) {
         this.props.dispatch(updateVote(id, option))
-        fetchSinglePost(this.props.value).then(response => this.setState({
-            post: response
-        }))
     }
     render() {
         console.log(this.props);
@@ -68,9 +67,10 @@ class DetailedPost extends Component {
     }
 };
 
-function mapStateToProps(data, ownProps) {
+function mapStateToProps(data) {
     return {
-        comments: data.comments
+        comments: data.comments,
+        posts: data.posts
     }
 }
 

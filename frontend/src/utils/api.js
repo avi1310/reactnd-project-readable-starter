@@ -53,3 +53,11 @@ export const updateCommentVoteAPI = (commentId, vote) =>
         headers: myHeaders,
         body: JSON.stringify({'option': vote})
     }).then(res => res.json()).then(data => data)
+
+export const deleteCommentAPI = id =>
+    fetch(`${API}/comments/${id}`, {
+        method: "DELETE",
+        headers: myHeaders
+    })
+        .then(res => res.json())
+        .then(data => data);
