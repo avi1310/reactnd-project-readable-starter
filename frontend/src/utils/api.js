@@ -26,7 +26,7 @@ export const addPostAPI = post =>
         method: "post",
         headers: myHeaders,
         body: JSON.stringify(post)
-    }).then(res => console.log(res.json()));
+    }).then(res => res.json());
 
 export const updateVotePost = (postId, vote) =>
     fetch(`${API}/posts/${postId}`, {
@@ -61,3 +61,18 @@ export const deleteCommentAPI = id =>
     })
         .then(res => res.json())
         .then(data => data);
+
+export const deletePostAPI = id =>
+    fetch(`${API}/posts/${id}`, {
+        method: "DELETE",
+        headers: myHeaders
+    })
+        .then(res => res.json())
+        .then(data => data);
+
+export const addCommentAPI = comment =>
+    fetch(`${API}/comments`, {
+        method: "post",
+        headers: myHeaders,
+        body: JSON.stringify(comment)
+    }).then(res => res.json());

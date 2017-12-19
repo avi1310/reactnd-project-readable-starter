@@ -1,4 +1,4 @@
-import { fetchPosts, fetchCategories, addPostAPI, updateVotePost, updatePostAPI, getCommentsAPI, updateCommentVoteAPI, deleteCommentAPI } from "../utils/api";
+import { fetchPosts, fetchCategories, addPostAPI, updateVotePost, updatePostAPI, getCommentsAPI, updateCommentVoteAPI, deleteCommentAPI, deletePostAPI, addCommentAPI } from "../utils/api";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const CHANGE_SORT = "CHANGE_SORT";
@@ -11,7 +11,10 @@ export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 export const UP_VOTE_COMMENT = "UP_VOTE_COMMENT";
 export const DOWN_VOTE_COMMENT = "DOWN_VOTE_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
-export const COMMENT_NUMBER_UPDATE = "COMMENT_NUMBER_UPDATE";
+export const POST_COMMENT_UPDATE_DELETE = "POST_COMMENT_UPDATE_DELETE";
+export const DELETE_POST = "DELETE_POST";
+export const ADD_COMMENT = "ADD_COMMENT";
+export const POST_COMMENT_UPDATE_ADD = "POST_COMMENT_UPDATE_ADD";
 
 
 export const receivePosts = posts => ({
@@ -139,9 +142,9 @@ function deleteComment(id) {
     };
 }
 
-function postCommentNumberUpdate(id) {
+function postCommentUpdateDelete(id) {
     return {
-        type: COMMENT_NUMBER_UPDATE,
+        type: POST_COMMENT_UPDATE_DELETE,
         id
     }
 }
@@ -149,9 +152,37 @@ function postCommentNumberUpdate(id) {
 export const deleteCommentRedux = id => dispatch =>
     deleteCommentAPI(id).then(response => {
         const parentId = response.parentId;
-        console.log(parentId);
         dispatch(deleteComment(id))
-        dispatch(postCommentNumberUpdate(parentId))
+        dispatch(postCommentUpdateDelete(parentId))
     });
 
+function deletePost(id) {
+    return {
+        type: DELETE_POST,
+        id
+    };
+}
 
+export const deletePostRedux = id => dispatch =>
+    deletePostAPI(id).then(dispatch(deletePost(id)));
+
+function postCommentUpdateAdd(id) {
+    return {
+        type: POST_COMMENT_UPDATE_ADD,
+        id
+    }
+}
+
+function addComment(comment) {
+    return {
+        type: ADD_COMMENT,
+        comment
+    }
+}
+
+export const addCommentRedux = comment => dispatch =>
+    addCommentAPI(comment).then(response => {
+        const parentId = response.parentId;
+        dispatch(addComment(comment))
+        dispatch(postCommentUpdateAdd(parentId))
+    });

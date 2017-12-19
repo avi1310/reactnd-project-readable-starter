@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import Navigation from './Navigation';
 import Comments from './Comments'
+import AddComment from './AddComment'
 import { votePost, fetchSinglePost } from '../utils/api';
 import { withRouter, Link } from 'react-router-dom'
-import { updateVote, getAllComments } from '../Actions'
+import { updateVote, getAllComments, deletePostRedux } from '../Actions'
 
 
 class DetailedPost extends Component {
@@ -29,6 +30,10 @@ class DetailedPost extends Component {
     vote (id, option) {
         this.props.dispatch(updateVote(id, option))
     }
+    deletePost(id) {
+        this.props.dispatch(deletePostRedux(id))
+        this.props.history.push("/")
+    }
     render() {
         console.log(this.props);
         const { post } = this.state
@@ -42,7 +47,10 @@ class DetailedPost extends Component {
                     <Card className="detailed-post">
                         <CardHeader className="post-card-header">
                             <span>{post.category}</span>
-                            <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                            <div className="detailed-post-top-buttons">
+                                <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                                <Button color="secondary" size="sm" className="delete-post-btn" onClick={() => this.deletePost(post.id)}>Delete</Button>
+                            </div>
                         </CardHeader>
                         <CardBody>
                             <div className="title-area">
@@ -61,6 +69,7 @@ class DetailedPost extends Component {
                         </CardFooter>
                     </Card>
                     <Comments/>
+                    <AddComment postId={post.id} />
                 </div>
             </div>
         )

@@ -160,3 +160,9 @@ span.author {
 .comment-button {
   margin-right: 10px;
 }
+.delete-post-btn {
+  margin-left: 10px;
+}
+.comment-form {
+  padding: 30px;
+}
