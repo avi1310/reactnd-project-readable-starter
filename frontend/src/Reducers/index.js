@@ -7,7 +7,10 @@ import {
     ADD_POST,
     UP_VOTE_POST,
     DOWN_VOTE_POST,
-    UPDATE_POST_REDUX
+    UPDATE_POST_REDUX,
+    RECEIVE_COMMENTS,
+    UP_VOTE_COMMENT,
+    DOWN_VOTE_COMMENT
 } from '../Actions'
 
 function posts (state = [], action) {
@@ -64,6 +67,33 @@ function categories (state = {}, action) {
     }
 }
 
+function comments(state = [], action) {
+    const {comments, comment, id} = action;
+    switch (action.type) {
+        case RECEIVE_COMMENTS: {
+            return comments;
+        }
+        case UP_VOTE_COMMENT:
+            let commentupvote = state.map(c => {
+                if (c.id === id) {
+                    ++c.voteScore;
+                }
+                return c;
+            });
+            return commentupvote;
+        case DOWN_VOTE_COMMENT:
+            let commentdownvote = state.map(c => {
+                if (c.id === id) {
+                    --c.voteScore;
+                }
+                return c;
+            });
+            return commentdownvote;
+        default:
+            return state;
+    }
+}
+
 function sort(state = {sortValue: "time"}, action) {
     const { sortValue } = action
 
@@ -81,5 +111,6 @@ function sort(state = {sortValue: "time"}, action) {
 export default combineReducers({
     sort,
     posts,
-    categories
+    categories,
+    comments
 })

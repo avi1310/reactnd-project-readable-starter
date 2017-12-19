@@ -123,3 +123,40 @@ span.author {
   flex-direction: row;
   justify-content: space-between;
 }
+.detailed-post.card {
+  margin-bottom: 0px;
+}
+.comment-card.card {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.comments-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.comment-space {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+.comment-edit-btn {
+  margin-left: 30px;
+}
+.comment-space .author {
+  margin-left: 10px;
+}
+.comment-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comment-score {
+  margin-right: 10px;
+}
+.comment-button {
+  margin-right: 10px;
+}

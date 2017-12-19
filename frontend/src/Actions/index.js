@@ -1,4 +1,4 @@
-import { fetchPosts, fetchCategories, addPostAPI, updateVotePost, updatePostAPI } from "../utils/api";
+import { fetchPosts, fetchCategories, addPostAPI, updateVotePost, updatePostAPI, getCommentsAPI, updateCommentVoteAPI } from "../utils/api";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const CHANGE_SORT = "CHANGE_SORT";
@@ -7,6 +7,10 @@ export const ADD_POST = "ADD_POST";
 export const UP_VOTE_POST = "UP_VOTE_POST";
 export const DOWN_VOTE_POST = "DOWN_VOTE_POST";
 export const UPDATE_POST_REDUX = "UPDATE_POST_REDUX";
+export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
+export const UP_VOTE_COMMENT = "UP_VOTE_COMMENT";
+export const DOWN_VOTE_COMMENT = "DOWN_VOTE_COMMENT";
+
 
 export const receivePosts = posts => ({
     type: RECEIVE_POSTS,
@@ -88,4 +92,40 @@ export function updatePost(id, post) {
     return function(dispatch) {
         updatePostAPI(id, post).then(post => dispatch(updatePostRedux(post)));
     };
+}
+
+export function getAllComments(id) {
+    return function(dispatch) {
+        getCommentsAPI(id).then(comments => dispatch(receiveComments(comments)));
+    };
+}
+
+function receiveComments(comments) {
+    return {
+        type: RECEIVE_COMMENTS,
+        comments
+    };
+}
+
+function upVoteComment(id) {
+    return {
+        type: UP_VOTE_COMMENT,
+        id
+    };
+}
+
+function downVoteComment(id) {
+    return {
+        type: DOWN_VOTE_COMMENT,
+        id
+    };
+}
+
+export const updateCommentVote = (id, vote) => dispatch => {
+    updateCommentVoteAPI(id, vote)
+    if(vote === "upVote") {
+        dispatch(upVoteComment(id))
+    } else {
+        dispatch(downVoteComment(id))
+    }
 }

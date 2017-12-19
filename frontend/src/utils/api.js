@@ -41,3 +41,15 @@ export const updatePostAPI = (id, post) =>
         headers: myHeaders,
         body: JSON.stringify(post)
     }).then(res => res.json());
+
+export function getCommentsAPI (id) {
+    return fetch(`${API}/posts/${id}/comments`, {headers: myHeaders})
+        .then(response => response.json())
+}
+
+export const updateCommentVoteAPI = (commentId, vote) =>
+    fetch(`${API}/comments/${commentId}`, {
+        method: `post`,
+        headers: myHeaders,
+        body: JSON.stringify({'option': vote})
+    }).then(res => res.json()).then(data => data)

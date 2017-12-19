@@ -11,6 +11,7 @@ import RootFeed from './RootFeed'
 import CategoryView from './CategoryView'
 import AddPost from './AddPost'
 import EditPost from './EditPost'
+import DetailedPost from './DetailedPost'
 import { withRouter } from 'react-router-dom'
 
 
@@ -40,10 +41,15 @@ class App extends Component {
           <Route exact path="/addpost" render={() => (
               <AddPost />
           )} />
-
           {(posts)&&(posts.map((post) => (
                   <Route key={post.id} exact path={`/editpost/${post.id}`} render={() => (
                       <EditPost value={post.id} />
+                  )} />
+              ))
+          )}
+          {(posts)&&(posts.map((post) => (
+                  <Route key={post.id} exact path={`/post/${post.id}`} render={() => (
+                      <DetailedPost value={post.id} />
                   )} />
               ))
           )}
