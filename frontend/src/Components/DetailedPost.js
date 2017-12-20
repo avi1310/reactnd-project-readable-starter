@@ -42,7 +42,7 @@ class DetailedPost extends Component {
                 <Navigation />
                 <div className="page-section">
                     <div className="page-top">
-                        <h1 className="page-header">Detailed Post</h1>
+                        <h1 className="page-header">Detailed Post View</h1>
                     </div>
                     <Card className="detailed-post">
                         <CardHeader className="post-card-header">

@@ -1,4 +1,4 @@
-import { fetchPosts, fetchCategories, addPostAPI, updateVotePost, updatePostAPI, getCommentsAPI, updateCommentVoteAPI, deleteCommentAPI, deletePostAPI, addCommentAPI } from "../utils/api";
+import { fetchPosts, fetchCategories, addPostAPI, updateVotePost, updatePostAPI, getCommentsAPI, updateCommentVoteAPI, deleteCommentAPI, deletePostAPI, addCommentAPI, updateCommentAPI } from "../utils/api";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const CHANGE_SORT = "CHANGE_SORT";
@@ -15,6 +15,7 @@ export const POST_COMMENT_UPDATE_DELETE = "POST_COMMENT_UPDATE_DELETE";
 export const DELETE_POST = "DELETE_POST";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const POST_COMMENT_UPDATE_ADD = "POST_COMMENT_UPDATE_ADD";
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
 
 
 export const receivePosts = posts => ({
@@ -186,3 +187,16 @@ export const addCommentRedux = comment => dispatch =>
         dispatch(addComment(comment))
         dispatch(postCommentUpdateAdd(parentId))
     });
+
+function updateComment(comment) {
+    return {
+        type: UPDATE_COMMENT,
+        comment
+    };
+}
+
+export function updateCommentRedux(id, comment) {
+    return function(dispatch) {
+        updateCommentAPI(id, comment).then(comment => dispatch(updateComment(comment)));
+    };
+}

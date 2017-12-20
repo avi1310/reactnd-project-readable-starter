@@ -76,3 +76,10 @@ export const addCommentAPI = comment =>
         headers: myHeaders,
         body: JSON.stringify(comment)
     }).then(res => res.json());
+
+export const updateCommentAPI = (id, comment) =>
+    fetch(`${API}/comments/${id}`, {
+        method: "PUT",
+        headers: myHeaders,
+        body: JSON.stringify(comment)
+    }).then(res => res.json());

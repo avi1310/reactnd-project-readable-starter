@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { withRouter, Link } from 'react-router-dom';
 import { updateCommentVote, deleteCommentRedux } from '../Actions'
+import EditCommentModal from './EditCommentModal'
 
 class Comments extends React.Component {
 
@@ -19,6 +20,7 @@ class Comments extends React.Component {
         const { comments } = this.props
         return (
             <div>
+                {console.log(comments)}
                     {(comments) && (comments.map((comment) => (
                         <Card key={comment.id} className="comment-card">
                             <CardBody>
@@ -26,7 +28,7 @@ class Comments extends React.Component {
                                     <div className="comment-space">
                                         <CardText>{comment.body}</CardText>
                                         <span className="author">by {comment.author}</span>
-                                        <Button size="sm" className="comment-edit-btn">Edit</Button>
+                                        <EditCommentModal comment={comment} />
                                     </div>
                                     <span className="card-time"><Timestamp time={comment.timestamp} /></span>
                                 </div>
@@ -39,14 +41,15 @@ class Comments extends React.Component {
                             </CardBody>
                         </Card>
                     )))}
-                </div>
+            </div>
         );
     }
 };
 
 function mapStateToProps(data, ownProps) {
+    let comments = data.comments
     return {
-        comments: data.comments
+        comments
     }
 }
 

@@ -15,7 +15,8 @@ import {
     POST_COMMENT_UPDATE_DELETE,
     DELETE_POST,
     ADD_COMMENT,
-    POST_COMMENT_UPDATE_ADD
+    POST_COMMENT_UPDATE_ADD,
+    UPDATE_COMMENT
 } from '../Actions'
 
 function posts (state = [], action) {
@@ -118,6 +119,14 @@ function comments(state = [], action) {
             return update;
         case ADD_COMMENT:
             return [...state, comment]
+        case UPDATE_COMMENT:
+            let newcomment = state.map(c => {
+                if (c.id === comment.id) {
+                    c = comment;
+                }
+                return c;
+            });
+            return newcomment;
         default:
             return state;
     }
