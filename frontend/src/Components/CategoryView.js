@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Navigation from "./Navigation";
 import Post from "./Post";
 import Sort from "./Sort";
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button } from 'reactstrap'
 

@@ -3,7 +3,6 @@ import { Card, Button, CardHeader, CardFooter, CardBody,
     CardTitle, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
-import { votePost } from '../utils/api';
 import { withRouter, Link } from 'react-router-dom'
 import { updateVote, fetchC, fetchP } from '../Actions'
 

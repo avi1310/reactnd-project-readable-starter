@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Navigation from './Navigation'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -129,14 +129,14 @@ class AddPost extends React.Component {
 
 function mapStateToProps(data) {
 
-    if (data.categories.categories) {
+    if (data.categories) {
         return {
-            categories: data.categories.categories.categories
+            categories: data.categories.categories
         }
     }
     else {
         return {
-            categories: data.categories.categories
+            categories: data.categories
         }
     }
 }

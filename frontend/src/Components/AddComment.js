@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText, Card } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Card } from 'reactstrap';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { addCommentRedux } from '../Actions'

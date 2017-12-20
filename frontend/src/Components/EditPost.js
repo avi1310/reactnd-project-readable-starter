@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Navigation from './Navigation'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -20,7 +20,7 @@ class EditPost extends React.Component {
     componentDidMount() {
         fetchSinglePost(this.state.id).then(response => this.setState({
             title: response.title,
-            body: response. body,
+            body: response.body,
             author: response.author,
             category: response.category,
         }))
@@ -107,14 +107,14 @@ class EditPost extends React.Component {
 
 function mapStateToProps(data) {
 
-    if (data.categories.categories) {
+    if (data.categories) {
         return {
-            categories: data.categories.categories.categories
+            categories: data.categories.categories
         }
     }
     else {
         return {
-            categories: data.categories.categories
+            categories: data.categories
         }
     }
 }

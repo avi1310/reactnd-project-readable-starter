@@ -1,9 +1,8 @@
 import React from 'react';
-import { Card, Button, CardHeader, CardFooter, CardBody,
-    CardTitle, CardText } from 'reactstrap';
+import { Card, Button, CardBody, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { updateCommentVote, deleteCommentRedux } from '../Actions'
 import EditCommentModal from './EditCommentModal'
 
@@ -20,7 +19,6 @@ class Comments extends React.Component {
         const { comments } = this.props
         return (
             <div>
-                {console.log(comments)}
                     {(comments) && (comments.map((comment) => (
                         <Card key={comment.id} className="comment-card">
                             <CardBody>
@@ -46,7 +44,7 @@ class Comments extends React.Component {
     }
 };
 
-function mapStateToProps(data, ownProps) {
+function mapStateToProps(data) {
     let comments = data.comments
     return {
         comments

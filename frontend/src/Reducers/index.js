@@ -77,16 +77,13 @@ function posts (state = [], action) {
     }
 }
 
-function categories (state = {}, action) {
+function categories (state = [], action) {
 
     const { categories } = action
 
     switch (action.type) {
         case RECEIVE_CATEGORIES:
-            return {
-                ...state,
-                categories,
-            }
+            return categories;
         default:
             return state;
     }

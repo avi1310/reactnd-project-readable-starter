@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import '../App.css';
-import Navigation from "./Navigation";
-import Post from "./Post";
-import Sort from "./Sort";
 import { fetchP, fetchC } from "../Actions"
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
@@ -65,15 +61,15 @@ class App extends Component {
 }
 
 function mapStateToProps(data) {
-    if(data.categories.categories) {
+    if(data.categories) {
         return {
-            categories: data.categories.categories.categories,
+            categories: data.categories.categories,
             posts: data.posts
         }
     }
     else {
         return {
-            categories: data.categories.categories,
+            categories: data.categories,
             posts: data.posts
         }
     }

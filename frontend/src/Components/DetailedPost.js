@@ -6,7 +6,6 @@ import Timestamp from 'react-timestamp';
 import Navigation from './Navigation';
 import Comments from './Comments'
 import AddComment from './AddComment'
-import { votePost, fetchSinglePost } from '../utils/api';
 import { withRouter, Link } from 'react-router-dom'
 import { updateVote, getAllComments, deletePostRedux } from '../Actions'
 
@@ -35,7 +34,6 @@ class DetailedPost extends Component {
         this.props.history.push("/")
     }
     render() {
-        console.log(this.props);
         const { post } = this.state
         return (
             <div>
