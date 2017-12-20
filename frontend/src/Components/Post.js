@@ -30,12 +30,12 @@ class Post extends Component {
                         <CardHeader className="post-card-header">
                             <span>{post.category}</span>
                             <div>
-                                <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                                <Link to={`/${post.category}/${post.id}/edit`}><Button color="secondary" size="sm">Edit</Button></Link>
                                 <Button color="secondary" size="sm" className="delete-post-btn" onClick={() => this.deletePost(post.id)}>Delete</Button>
                             </div>
                         </CardHeader>
                         <CardBody>
-                            <Link className="post-link" to={`/post/${post.id}`}>
+                            <Link className="post-link" to={`/${post.category}/${post.id}`}>
                                 <div className="title-area">
                                     <CardTitle>{post.title} <span className="author">by {post.author}</span></CardTitle>
                                     <span className="card-time"><Timestamp time={post.timestamp} /></span>
@@ -49,7 +49,7 @@ class Post extends Component {
                                 <Button className="down-vote" onClick={() => this.vote(post.id, "downVote")}>Downvote</Button>
                                 <span className="post-score">Score: {post.voteScore}</span>
                             </div>
-                            <Link className="post-link" to={`/post/${post.id}`}><span className="total-comments">{post.commentCount} Comment(s)</span></Link>
+                            <Link className="post-link" to={`/${post.category}/${post.id}`}><span className="total-comments">{post.commentCount} Comment(s)</span></Link>
                         </CardFooter>
                     </Card>))) : (<h1>No posts to show</h1>)}
             </div>

@@ -46,7 +46,7 @@ class DetailedPost extends Component {
                         <CardHeader className="post-card-header">
                             <span>{post.category}</span>
                             <div className="detailed-post-top-buttons">
-                                <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                                <Link to={`/${post.category}/${post.id}/edit`}><Button color="secondary" size="sm">Edit</Button></Link>
                                 <Button color="secondary" size="sm" className="delete-post-btn" onClick={() => this.deletePost(post.id)}>Delete</Button>
                             </div>
                         </CardHeader>

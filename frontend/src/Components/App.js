@@ -38,19 +38,19 @@ class App extends Component {
               <AddPost />
           )} />
           {(posts)&&(posts.map((post) => (
-                  <Route key={post.id} exact path={`/editpost/${post.id}`} render={() => (
+                  <Route key={post.id} exact path={`/${post.category}/${post.id}/edit`} render={() => (
                       <EditPost value={post.id} />
                   )} />
               ))
           )}
           {(posts)&&(posts.map((post) => (
-                  <Route key={post.id} exact path={`/post/${post.id}`} render={() => (
+                  <Route key={post.id} exact path={`/${post.category}/${post.id}`} render={() => (
                       <DetailedPost value={post.id} />
                   )} />
               ))
           )}
           {(categories)&&(categories.map((category) => (
-                  <Route key={category.name} exact path={`/category/${category.path}`} render={() => (
+                  <Route key={category.name} exact path={`/${category.path}`} render={() => (
                       <CategoryView value={category.name} flag={this.state.flag} />
                   )} />
               ))

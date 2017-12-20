@@ -31,7 +31,7 @@ class Navigation extends React.Component {
                                 if(selected === category.name) {
                                     return (
                                         <Link
-                                            to={`/category/${category.path}`}
+                                            to={`/${category.path}`}
                                             className="nav-link active"
                                             key={category.name}>
                                             {category.name}
@@ -41,7 +41,7 @@ class Navigation extends React.Component {
                                 else {
                                     return (
                                         <Link
-                                            to={`/category/${category.path}`}
+                                            to={`/${category.path}`}
                                             className="nav-link"
                                             key={category.name}>
                                             {category.name}
