@@ -31,11 +31,13 @@ class Post extends Component {
                             <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
                         </CardHeader>
                         <CardBody>
-                            <div className="title-area">
-                                <CardTitle>{post.title} <span className="author">by {post.author}</span></CardTitle>
-                                <span className="card-time"><Timestamp time={post.timestamp} /></span>
-                            </div>
-                            <CardText>{post.body}</CardText>
+                            <Link className="post-link" to={`/post/${post.id}`}>
+                                <div className="title-area">
+                                    <CardTitle>{post.title} <span className="author">by {post.author}</span></CardTitle>
+                                    <span className="card-time"><Timestamp time={post.timestamp} /></span>
+                                </div>
+                                <CardText>{post.body}</CardText>
+                            </Link>
                         </CardBody>
                         <CardFooter>
                             <div className="vote-controls">
@@ -43,9 +45,9 @@ class Post extends Component {
                                 <Button className="down-vote" onClick={() => this.vote(post.id, "downVote")}>Downvote</Button>
                                 <span className="post-score">Score: {post.voteScore}</span>
                             </div>
-                            <span className="total-comments">{post.commentCount} Comment(s)</span>
+                            <Link className="post-link" to={`/post/${post.id}`}><span className="total-comments">{post.commentCount} Comment(s)</span></Link>
                         </CardFooter>
-                    </Card>))) : (<span></span>)}
+                    </Card>))) : (<h1>No posts to show</h1>)}
             </div>
         )
     }

@@ -82,6 +82,14 @@ span.author {
   justify-content: space-between;
   align-items: center;
 }
+.post-link {
+  color: black;
+}
+.post-link:hover {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
 .vote-controls {
   width: 35%;
   display: flex;
