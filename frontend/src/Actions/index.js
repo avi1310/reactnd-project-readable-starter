@@ -184,6 +184,7 @@ function addComment(comment) {
 export const addCommentRedux = comment => dispatch =>
     addCommentAPI(comment).then(response => {
         const parentId = response.parentId;
+        comment.voteScore = 1;
         dispatch(addComment(comment))
         dispatch(postCommentUpdateAdd(parentId))
     });

@@ -24,7 +24,9 @@ class AddComment extends React.Component {
             this.props.dispatch(addCommentRedux(comment));
             this.setState({
                 body: '',
-                author: ''
+                author: '',
+                bodyValid: false,
+                authorValid: false
             })
         }
     }
