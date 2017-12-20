@@ -4,7 +4,7 @@ import { Card, Button, CardHeader, CardFooter, CardBody,
 import { connect } from 'react-redux';
 import Timestamp from 'react-timestamp';
 import { withRouter, Link } from 'react-router-dom'
-import { updateVote, fetchC, fetchP } from '../Actions'
+import { updateVote, fetchC, fetchP, deletePostRedux } from '../Actions'
 
 class Post extends Component {
 
@@ -18,7 +18,9 @@ class Post extends Component {
     vote (id, option) {
         this.props.dispatch(updateVote(id, option))
     }
-
+    deletePost(id) {
+        this.props.dispatch(deletePostRedux(id))
+    }
     render() {
         const { posts } = this.props
         return (
@@ -27,7 +29,10 @@ class Post extends Component {
                     <Card key={post.id}>
                         <CardHeader className="post-card-header">
                             <span>{post.category}</span>
-                            <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                            <div>
+                                <Link to={`/editpost/${post.id}`}><Button color="secondary" size="sm">Edit</Button></Link>
+                                <Button color="secondary" size="sm" className="delete-post-btn" onClick={() => this.deletePost(post.id)}>Delete</Button>
+                            </div>
                         </CardHeader>
                         <CardBody>
                             <Link className="post-link" to={`/post/${post.id}`}>
