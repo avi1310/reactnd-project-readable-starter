@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import '../App.css';
 import { fetchP, fetchC } from "../Actions"
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import RootFeed from './RootFeed'
 import CategoryView from './CategoryView'
 import AddPost from './AddPost'
 import EditPost from './EditPost'
 import DetailedPost from './DetailedPost'
+import PageNotFound from './PageNotFound'
 import { withRouter } from 'react-router-dom'
 
 
@@ -31,6 +32,7 @@ class App extends Component {
 
     return (
       <div className="App">
+          <Switch>
         <Route exact path="/" render={() => (
             <RootFeed flag={this.state.flag} />
         )} />
@@ -55,6 +57,8 @@ class App extends Component {
                   )} />
               ))
           )}
+              <Route path='*' component={PageNotFound} />
+          </Switch>
       </div>
     )
   }
