@@ -13,6 +13,8 @@ class EditPost extends React.Component {
         body: '',
         author: '',
         category: '',
+        titleValid: true,
+        bodyValid: true,
         id: this.props.value
     }
     componentDidMount() {
@@ -29,14 +31,39 @@ class EditPost extends React.Component {
             title: this.state.title,
             body: this.state.body
         }
-        this.props.dispatch(updatePost(this.state.id, post));
-        this.props.history.push("/")
+        const valid = this.state.titleValid && this.state.bodyValid
+        if(valid) {
+            this.props.dispatch(updatePost(this.state.id, post));
+            this.props.history.push("/")
+        }
     }
     handleTitleChange = (e) => {
-        this.setState({title: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                title: e.target.value,
+                titleValid: true
+            })
+        }
+        else {
+            this.setState({
+                title: e.target.value,
+                titleValid: false
+            })
+        }
     }
     handleBodyChange = (e) => {
-        this.setState({body: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                body: e.target.value,
+                bodyValid: true
+            })
+        }
+        else {
+            this.setState({
+                body: e.target.value,
+                bodyValid: false
+            })
+        }
     }
     render() {
         let { categories } = this.props
@@ -51,11 +78,11 @@ class EditPost extends React.Component {
                     <Form className="post-form" onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label for="title" className="label-name">Title</Label>
-                            <Input type="text" name="title" id="title" placeholder="Enter title" value={this.state.title} onChange={this.handleTitleChange} />
+                            <Input valid={this.state.titleValid} type="text" name="title" id="title" placeholder="Enter title" value={this.state.title} onChange={this.handleTitleChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="body" className="label-name">Body</Label>
-                            <Input type="textarea" name="body" id="body" placeholder="Enter text" value={this.state.body} onChange={this.handleBodyChange} />
+                            <Input valid={this.state.bodyValid} type="textarea" name="body" id="body" placeholder="Enter text" value={this.state.body} onChange={this.handleBodyChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="body" className="label-name">Author</Label>

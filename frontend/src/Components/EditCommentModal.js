@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Card, Input, Label } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Card, Input, Label } from 'reactstrap';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { updateCommentRedux } from '../Actions'
@@ -10,7 +10,8 @@ class EditCommentModal extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            body: this.props.comment.body
+            body: this.props.comment.body,
+            bodyValid: true,
         };
 
         this.toggle = this.toggle.bind(this);
@@ -21,7 +22,18 @@ class EditCommentModal extends React.Component {
         });
     }
     handleBodyChange = (e) => {
-        this.setState({body: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                body: e.target.value,
+                bodyValid: true
+            })
+        }
+        else {
+            this.setState({
+                body: e.target.value,
+                bodyValid: false
+            })
+        }
     }
     handleSubmit = (e) => {
         e.preventDefault()
@@ -29,8 +41,11 @@ class EditCommentModal extends React.Component {
             body: this.state.body,
             timestamp: Date.now()
         }
-        this.props.dispatch(updateCommentRedux(this.props.comment.id, comment));
-        this.toggle();
+        const valid = this.state.bodyValid
+        if(valid) {
+            this.props.dispatch(updateCommentRedux(this.props.comment.id, comment));
+            this.toggle();
+        }
     }
 
     render() {
@@ -45,7 +60,7 @@ class EditCommentModal extends React.Component {
                             <Form className="comment-form" onSubmit={this.handleSubmit}>
                                 <FormGroup>
                                     <Label for="body" className="label-name">Body</Label>
-                                    <Input type="textarea" name="body" id="body" placeholder="Enter comment" value={this.state.body} onChange={this.handleBodyChange} />
+                                    <Input valid={this.state.bodyValid} type="textarea" name="body" id="body" placeholder="Enter comment" value={this.state.body} onChange={this.handleBodyChange} />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="author" className="label-name">Author</Label>

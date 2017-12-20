@@ -10,6 +10,8 @@ class AddComment extends React.Component {
     state = {
         body: '',
         author: '',
+        bodyValid: false,
+        authorValid: false,
     }
     handleSubmit = (e) => {
         e.preventDefault()
@@ -17,17 +19,42 @@ class AddComment extends React.Component {
         comment.timestamp = Date.now()
         comment.id = uuidv4();
         comment.parentId = this.props.postId
-        this.props.dispatch(addCommentRedux(comment));
-        this.setState({
-            body: '',
-            author: ''
-        })
+        const valid = this.state.bodyValid && this.state.authorValid;
+        if(valid) {
+            this.props.dispatch(addCommentRedux(comment));
+            this.setState({
+                body: '',
+                author: ''
+            })
+        }
     }
     handleBodyChange = (e) => {
-        this.setState({body: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                body: e.target.value,
+                bodyValid: true
+            })
+        }
+        else {
+            this.setState({
+                body: e.target.value,
+                bodyValid: false
+            })
+        }
     }
     handleAuthorChange = (e) => {
-        this.setState({author: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                author: e.target.value,
+                authorValid: true
+            })
+        }
+        else {
+            this.setState({
+                author: e.target.value,
+                authorValid: false
+            })
+        }
     }
     render() {
         return (
@@ -35,10 +62,10 @@ class AddComment extends React.Component {
                 <Card className="comment-card">
                     <Form className="comment-form" onSubmit={this.handleSubmit}>
                         <FormGroup>
-                            <Input type="textarea" name="body" id="body" placeholder="Enter comment" value={this.state.body} onChange={this.handleBodyChange} />
+                            <Input valid={this.state.bodyValid} type="textarea" name="body" id="body" placeholder="Enter comment" value={this.state.body} onChange={this.handleBodyChange} />
                         </FormGroup>
                         <FormGroup>
-                            <Input type="text" name="author" id="author" placeholder="Enter author name" value={this.state.author} onChange={this.handleAuthorChange} />
+                            <Input valid={this.state.authorValid} type="text" name="author" id="author" placeholder="Enter author name" value={this.state.author} onChange={this.handleAuthorChange} />
                         </FormGroup>
                         <Button id="form-submit-btn">Add Comment</Button>
                     </Form>

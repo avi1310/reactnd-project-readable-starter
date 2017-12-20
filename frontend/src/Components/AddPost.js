@@ -12,7 +12,11 @@ class AddPost extends React.Component {
         title: '',
         body: '',
         author: '',
-        category: ''
+        category: '',
+        titleValid: false,
+        bodyValid: false,
+        authorValid: false,
+        categoryValid: false
     }
     handleSubmit = (e) => {
         e.preventDefault()
@@ -20,20 +24,67 @@ class AddPost extends React.Component {
         post.timestamp = Date.now()
         post.id = uuidv4();
         post.voteScore = 0;
-        this.props.dispatch(addPostRedux(post));
-        this.props.history.push("/")
+        const valid = this.state.titleValid && this.state.bodyValid && this.state.authorValid && this.state.categoryValid;
+        if(valid) {
+            this.props.dispatch(addPostRedux(post));
+            this.props.history.push("/")
+        }
     }
     handleTitleChange = (e) => {
-        this.setState({title: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                title: e.target.value,
+                titleValid: true
+            })
+        }
+        else {
+            this.setState({
+                title: e.target.value,
+                titleValid: false
+            })
+        }
     }
     handleBodyChange = (e) => {
-        this.setState({body: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                body: e.target.value,
+                bodyValid: true
+            })
+        }
+        else {
+            this.setState({
+                body: e.target.value,
+                bodyValid: false
+            })
+        }
     }
     handleAuthorChange = (e) => {
-        this.setState({author: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                author: e.target.value,
+                authorValid: true
+            })
+        }
+        else {
+            this.setState({
+                author: e.target.value,
+                authorValid: false
+            })
+        }
     }
     handleCategoryChange = (e) => {
-        this.setState({category: e.target.value})
+        if(e.target.value) {
+            this.setState({
+                category: e.target.value,
+                categoryValid: true
+            })
+        }
+        else {
+            this.setState({
+                category: e.target.value,
+                categoryValid: false
+            })
+        }
     }
     render() {
         let { categories } = this.props
@@ -48,19 +99,19 @@ class AddPost extends React.Component {
                     <Form className="post-form" onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label for="title" className="label-name">Title</Label>
-                            <Input type="text" name="title" id="title" placeholder="Enter title" value={this.state.title} onChange={this.handleTitleChange} />
+                            <Input valid={this.state.titleValid} type="text" name="title" id="title" placeholder="Enter title" value={this.state.title} onChange={this.handleTitleChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="body" className="label-name">Body</Label>
-                            <Input type="textarea" name="body" id="body" placeholder="Enter text" value={this.state.body} onChange={this.handleBodyChange} />
+                            <Input valid={this.state.bodyValid} type="textarea" name="body" id="body" placeholder="Enter text" value={this.state.body} onChange={this.handleBodyChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="body" className="label-name">Author</Label>
-                            <Input type="text" name="author" id="author" placeholder="Enter author name" value={this.state.author} onChange={this.handleAuthorChange} />
+                            <Input valid={this.state.authorValid} type="text" name="author" id="author" placeholder="Enter author name" value={this.state.author} onChange={this.handleAuthorChange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="categorySelect" className="label-name">Category</Label>
-                                <Input type="select" name="select" id="categorySelect" value={this.state.category} onChange={this.handleCategoryChange}>
+                                <Input valid={this.state.categoryValid} type="select" name="select" id="categorySelect" value={this.state.category} onChange={this.handleCategoryChange}>
                                     <option></option>
                                     {categories && categories.map(function (category) {
                                         return (<option key={category.name}>{category.name}</option>)
